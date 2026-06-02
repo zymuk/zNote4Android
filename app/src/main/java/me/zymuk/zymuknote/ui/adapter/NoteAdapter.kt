@@ -30,6 +30,10 @@ class NoteAdapter(private val onClick:(Note) -> Unit): RecyclerView.Adapter<Note
             tvTitle.text = note.title
             tvContent.text = note.content
             tvDate.text = "Updated: ${SimpleDateFormat("yyyy/MM/dd/ HH:mm").format(note.updatedAt)}"
+
+            root.setOnClickListener {
+                onClick(note)
+            }
         }
     }
 
