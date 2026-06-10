@@ -78,6 +78,14 @@ class NoteEditor : AppCompatActivity() {
     }
 
     private fun deleteNote() {
+        if(noteCurrent != null) {
+            viewModel.delete(noteCurrent!!)
+        }
+
+        finish()
+    }
+
+    private fun saveNote() {
         val title = binding.etTitle.text.toString()
         val content = binding.etContent.text.toString()
 
@@ -91,19 +99,13 @@ class NoteEditor : AppCompatActivity() {
         }
 
         if(noteCurrent==null){
-            val note = Note(title = title, content = content, createdAt = "", updatedAt = "", isPinned = false)
+            val note = Note(title = title, content = content)
+            viewModel.insert(note)
         }else{
             val note=noteCurrent!!.copy(title = title, content = content)
             viewModel.update(note)
         }
 
-        finish()
-    }
-
-    private fun saveNote() {
-        if(noteCurrent!=null){
-            viewModel.delete(noteCurrent!!)
-        }
         finish()
     }
 }
